@@ -6,6 +6,7 @@ import java.util.Objects;
 
 
 @Entity
+@Table(name = "Book")
 public class Book {
     @Id
     @SequenceGenerator(
@@ -30,6 +31,9 @@ public class Book {
         this.pageNumber = pageNumber;
         this.menstruation = menstruation;
 
+
+    }
+    public Book(){
 
     }
 
