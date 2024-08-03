@@ -5,6 +5,7 @@ import com.ch.ll.booking_application.entitites.Customer;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(path = "/customers")
@@ -31,17 +32,17 @@ public class UsuerController {
         //custom exception
         return CustomerRepository.findById(customerId).orElse(null);
 
+
     }
 
     @PutMapping("/{customerId}")
     public Customer updateCustomer(@PathVariable Integer customerId, @RequestBody Customer newcustomer) {
         Customer exsistCustomer = CustomerRepository.findById(customerId).orElse(null);
-        if (exsistCustomer != null) {
-            newcustomer.setId(exsistCustomer.getId());
-            newcustomer.setFirstName(exsistCustomer.getFirstName());
-            newcustomer.setLastName(exsistCustomer.getLastName());
-            newcustomer.setEmail(exsistCustomer.getEmail());
-            newcustomer.setPhone(exsistCustomer.getPhone());
+        if (Objects.nonNull(exsistCustomer)) {
+            exsistCustomer.setFirstName(newcustomer.getFirstName());
+            exsistCustomer.setLastName(newcustomer.getLastName());
+            exsistCustomer.setEmail(newcustomer.getEmail());
+            exsistCustomer.setPhone(newcustomer.getPhone());
             return CustomerRepository.save(newcustomer);
         }else {
             System.out.println("Customer not found");
